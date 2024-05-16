@@ -13,9 +13,9 @@ jobs:
       - run: Rscript applyBenefitsCalculator.R ssdi_2
       - name: "Print project csv output"
         run: |
-          echo "\nssdi_1:"
+          echo "ssdi_1:"
           cat output/results_ssdi_1.csv
-          echo "\nssdi_2:"
+          echo "ssdi_2:"
           cat output/results_ssdi_2.csv
       - name: Archive project output
         uses: actions/upload-artifact@v4
