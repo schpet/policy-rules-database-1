@@ -25,14 +25,25 @@ load(paste0(current_directory,"/prd_parameters/parameters.defaults.rdata"))
 
 ## Call all the functions----
 
-source(paste0(current_directory,"/libraries.R"), local=TRUE) # Load required packages
+# use a trimmed down variant of libraries excluding shiny etc
+source(paste0(current_directory,"/applyBenefitsLibraries.R"), local=TRUE) # Load required packages
+# source(paste0(current_directory,"/libraries.R"), local=TRUE) # Load required packages
+
 source(paste0(current_directory,"/functions/benefits_functions.R"), local=TRUE) # Benefits calculations
 source(paste0(current_directory,"/functions/expense_functions.R"), local=TRUE) # Expenses calculations
 source(paste0(current_directory,"/functions/BenefitsCalculator_functions.R"), local=TRUE) # Benefits Calculator functions
 
 # SPECIFY PROJECT----
-PROJECT<-"TEST"
+# PROJECT<-"TEST"
 #PROJECT<-"unit_test"
+
+# get the project name from the command line, e.g. Rscript applyBenefitsCalculator.R wic_a
+args <- commandArgs(trailingOnly = TRUE)
+if(length(args) > 0){
+    PROJECT <- args[1]
+} else {
+    PROJECT <- "wic_b"
+}
 
 ## 1. Settings----
 
@@ -116,7 +127,7 @@ data2<-data %>%
          , value.medicaid.adult, value.medicaid.child, value.aca, value.employerhealthcare
          , value.CCDF, value.HeadStart, value.PreK
          , value.cdctc.fed, value.cdctc.state, value.ctc.fed, value.ctc.state, value.eitc.fed, value.eitc.state
-         , value.eitc, value.ctc, value.cdctc, value.ssdi, value.ssi, value.tanf
+         , value.eitc, value.ctc, value.cdctc, value.ssdi, value.ssi, value.tanf, value.wic,
          , AfterTaxIncome, NetResources)
 
 
